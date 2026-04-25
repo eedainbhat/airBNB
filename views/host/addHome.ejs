@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb Admin | Add Home</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex items-center justify-center p-6 font-sans selection:bg-[#ff385c]/30">
+    
+    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-[#ff385c]/10 to-transparent pointer-events-none"></div>
+
+    <div class="w-full max-w-md bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-10 rounded-[2rem] shadow-2xl relative z-10">
+        <div class="w-14 h-14 bg-slate-950 border border-slate-800 rounded-full flex items-center justify-center mb-6 text-[#ff385c] shadow-inner">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        </div>
+        
+        <h2 class="text-3xl font-extrabold mb-8 text-white tracking-tight">Create Listing</h2>
+        
+        <form action='/host/home-added' method='POST' class="space-y-5">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Property Name</label>
+                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='name' placeholder="e.g. Cozy Cabin in the Woods">
+            </div>
+            
+            <div class="flex gap-4">
+                <div class="w-1/2">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Price / Night</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3.5 text-slate-500 font-bold">$</span>
+                        <input class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='price' placeholder="0.00">  
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Location</label>
+                    <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='location' placeholder="City, Country">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Photo URL</label>
+                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='photo' placeholder="https://...">
+            </div>
+
+            <button type='submit' class="w-full bg-[#ff385c] hover:bg-[#e03150] text-white py-4 rounded-xl font-bold mt-8 transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-[#ff385c]/20 uppercase tracking-wider text-sm flex justify-center items-center gap-2">
+                Publish Listing
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+            
+            <a href="/host" class="flex items-center justify-center gap-2 text-sm font-semibold text-slate-500 hover:text-white mt-6 transition-colors duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Dashboard
+            </a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "watch": ["app.js", "controllers", "routes", "models", "views"],
+  "ext": "js,ejs",
+  "ignore": ["node_modules/**", "data/**"],
+  "exec": "node app.js"
+}
