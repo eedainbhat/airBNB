@@ -33,4 +33,16 @@ module.exports = class Favorites {
             callback(!err ? JSON.parse(data) : [])
         }))
     }
+
+    static deleteFavourite(homeId, callback) {
+        fetchAll.getFavorites((favourites) => {
+            const newFavourites = favourites.filter(favHome => favHome !== homeId);
+            fs.writeFile(favFilePath, JSON.stringify(newFavourites), (error) => {
+                if (error) { console.log("Error writing file:", error) };
+                if (callback) {
+                    callback();
+                }
+            })
+        })
+    }
 }

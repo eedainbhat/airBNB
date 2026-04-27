@@ -1,5 +1,6 @@
 //imports
 const Home = require('../models/home');
+const Favourites = require('../models/favorites');
 
 
 exports.getHomeAdded = (req, res) => {
@@ -46,6 +47,8 @@ exports.postEditHomes = (req, res) => {
 exports.postDeleteHome = (req, res) => {
     const homeId = req.params.homeId;
     Home.deleteHome(homeId, (home) => {
+        Favourites.deleteFavourite(homeId, (home)=>{
         res.redirect('/host/host-homelist');
+        })
     })
 }
