@@ -19,9 +19,33 @@ exports.getAddHome = (req, res) => {
 };
 
 exports.getEditHomes = (req, res) => {
-    res.render('host/edit-home');
+    const homeId = req.params.homeId;
+    Home.findById(homeId, (home) => {
+        if (!home) {
+            res.render('error');
+        } else {
+            res.render("host/edit-home", { home })
+        }
+    })
 };
 
 exports.getHostHomelist = (req, res) => {
-    res.render('host/host-homelist');
+    Home.fetchAll((homelist) => {
+        res.render('host/host-homelist', { homelist });
+    });
 };
+
+exports.postEditHomes = (req, res) => {
+    const homeData = req.body;
+    const homeId = req.body.homeId;
+    Home.updateHome(homeId, homeData, (home) => {
+        res.redirect("/host/host-homelist")
+    })
+}
+
+exports.postDeleteHome = (req, res) => {
+    const homeId = req.params.homeId;
+    Home.deleteHome(homeId, (home) => {
+        res.redirect('/host/host-homelist');
+    })
+}

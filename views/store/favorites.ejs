@@ -1,42 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airbnb | Favorites</title>
     <link rel="stylesheet" href="/output.css">
 </head>
+
 <body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col font-sans selection:bg-[#ff385c]/30">
-    
-    <header class="sticky top-0 z-50 w-full flex flex-col md:flex-row justify-between items-center px-6 py-4 md:px-12 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/60 shadow-sm shadow-slate-900/20">
-        <a href="/user" class="flex items-center gap-2 text-[#ff385c] font-bold text-2xl tracking-tight mb-4 md:mb-0 hover:scale-105 transition-transform duration-300">
+
+    <header
+        class="sticky top-0 z-50 w-full flex flex-col md:flex-row justify-between items-center px-6 py-4 md:px-12 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/60 shadow-sm shadow-slate-900/20">
+        <a href="/user"
+            class="flex items-center gap-2 text-[#ff385c] font-bold text-2xl tracking-tight mb-4 md:mb-0 hover:scale-105 transition-transform duration-300">
             <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 1.4c-8.1 0-14.6 6.5-14.6 14.6 0 8.1 6.5 14.6 14.6 14.6 8.1 0 14.6-6.5 14.6-14.6 0-8.1-6.5-14.6-14.6-14.6zm0 27.2c-7 0-12.6-5.6-12.6-12.6 0-7 5.6-12.6 12.6-12.6 7 0 12.6 5.6 12.6 12.6 0 7-5.6 12.6-12.6 12.6zm3.6-17.1c-1-1.1-2.2-1.7-3.6-1.7-1.4 0-2.6.6-3.6 1.7-1.1 1.2-1.8 3-1.8 5.2s.7 4 1.8 5.2c1 1.1 2.2 1.7 3.6 1.7 1.4 0 2.6-.6 3.6-1.7 1.1-1.2 1.8-3 1.8-5.2s-.7-4-1.8-5.2zm-1.5 8.9c-.6.6-1.3.9-2.1.9-.8 0-1.5-.3-2.1-.9-.6-.7-.9-1.9-.9-3.7 0-1.8.3-3 .9-3.7.6-.6 1.3-.9 2.1-.9.8 0 1.5.3 2.1.9.6.7.9 1.9.9 3.7 0 1.8-.3 3-.9 3.7z" />
+                <path
+                    d="M16 1.4c-8.1 0-14.6 6.5-14.6 14.6 0 8.1 6.5 14.6 14.6 14.6 8.1 0 14.6-6.5 14.6-14.6 0-8.1-6.5-14.6-14.6-14.6zm0 27.2c-7 0-12.6-5.6-12.6-12.6 0-7 5.6-12.6 12.6-12.6 7 0 12.6 5.6 12.6 12.6 0 7-5.6 12.6-12.6 12.6zm3.6-17.1c-1-1.1-2.2-1.7-3.6-1.7-1.4 0-2.6.6-3.6 1.7-1.1 1.2-1.8 3-1.8 5.2s.7 4 1.8 5.2c1 1.1 2.2 1.7 3.6 1.7 1.4 0 2.6-.6 3.6-1.7 1.1-1.2 1.8-3 1.8-5.2s-.7-4-1.8-5.2zm-1.5 8.9c-.6.6-1.3.9-2.1.9-.8 0-1.5-.3-2.1-.9-.6-.7-.9-1.9-.9-3.7 0-1.8.3-3 .9-3.7.6-.6 1.3-.9 2.1-.9.8 0 1.5.3 2.1.9.6.7.9 1.9.9 3.7 0 1.8-.3 3-.9 3.7z" />
             </svg>
             Airbnb
         </a>
 
         <ul class="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm font-semibold tracking-wide">
-            <li><a href="/user" class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Home</a></li>
-            <li><a href="/user/home-list" class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Home-list</a></li>
-            <li><a href="/user/favorites" class="active text-[#ff385c] border-b-2 border-[#ff385c] pb-1 transition-all duration-300">Favorites</a></li>
-            <li><a href="/user/reserved" class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Reserved</a></li>
-            <li><a href="/user/bookings" class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Bookings</a></li>
-            <li><a href="/" class="text-green-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Logout</a></li>
+            <li><a href="/user"
+                    class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Home</a>
+            </li>
+            <li><a href="/user/home-list"
+                    class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Home-list</a>
+            </li>
+            <li><a href="/user/favorites"
+                    class="active text-[#ff385c] border-b-2 border-[#ff385c] pb-1 transition-all duration-300">Favorites</a>
+            </li>
+            <li><a href="/user/reserved"
+                    class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Reserved</a>
+            </li>
+            <li><a href="/user/bookings"
+                    class="text-slate-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Bookings</a>
+            </li>
+            <li><a href="/"
+                    class="text-green-400 border-b-2 border-transparent hover:text-white hover:border-slate-600 pb-1 transition-all duration-300">Logout</a>
+            </li>
         </ul>
     </header>
 
-    <main class="flex-grow flex items-center justify-center p-8 relative">
-        <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-[2rem] p-12 text-center shadow-2xl relative z-10">
-            <div class="w-20 h-20 bg-slate-950 border border-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-[#ff385c] shadow-inner">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <h1 class="text-3xl font-extrabold text-white mb-4 tracking-tight">Saved Homes</h1>
-            <p class="text-slate-400 mb-8 leading-relaxed">You haven't saved any homes yet. Click the heart icon on properties to save them here for later.</p>
-            <a href="/user/home-list" class="inline-block w-full px-8 py-4 bg-white text-slate-950 rounded-2xl font-bold hover:bg-[#ff385c] hover:text-white transition-all duration-300 transform active:scale-[0.98]">
-                Start Exploring
-            </a>
+    <main class="flex-grow flex flex-col max-w-7xl mx-auto w-full p-8 lg:p-12 relative">
+        <div class="mb-12">
+            <h2 class="text-4xl font-extrabold text-white mb-3 tracking-tight">Saved Homes</h2>
+            <p class="text-slate-400 text-lg">Your handpicked selection of favorite stays.</p>
         </div>
+
+        <% if (favouriteHomes && favouriteHomes.length> 0) { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% favouriteHomes.forEach(home=> { %>
+                    <div
+                        class="group border border-slate-800 rounded-3xl overflow-hidden bg-slate-900 hover:border-[#ff385c]/50 hover:shadow-[0_0_40px_-10px_rgba(255,56,92,0.15)] transition-all duration-300 flex flex-col relative">
+
+                        <div class="h-64 relative overflow-hidden">
+                            <img src="<%=home.photo%>"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out">
+
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90">
+                            </div>
+
+                            <div class="absolute top-4 left-4 flex gap-2 items-center z-10">
+                                <span
+                                    class="bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-slate-700">
+                                    Verified
+                                </span>
+                            </div>
+
+                            <%- include('../partials/favorites', { home: home, isFavorite: true })
+                                %>
+
+                                <div
+                                    class="absolute bottom-4 right-4 bg-slate-950/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-800 z-10 flex items-center gap-1">
+                                    <span class="text-[#ff385c] font-black text-xl">$<%=home.price%></span>
+                                    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">/
+                                        night</span>
+                                </div>
+                        </div>
+
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-6 flex-grow">
+                                <h3
+                                    class="text-2xl font-bold text-white group-hover:text-[#ff385c] transition-colors mb-2 tracking-tight">
+                                    <%=home.name%>
+                                </h3>
+                                <div class="flex items-center text-slate-400 text-sm font-medium">
+                                    <svg class="w-4 h-4 mr-1.5 text-slate-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                        </path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <%=home.location%>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a class="flex justify-center w-full py-4 bg-white text-slate-950 hover:bg-[#30d854] hover:text-[#ffffff] rounded-2xl font-bold transition-all transform active:scale-[0.98] shadow-lg cursor-pointer"
+                                    href="/user/home-list/<%=home.id%>">
+                                    Check Details
+                                </a>
+                                <a
+                                    class="flex justify-center w-full py-4 bg-white text-slate-950 hover:bg-[#ff385c] hover:text-white rounded-2xl font-bold transition-all transform active:scale-[0.98] shadow-lg cursor-pointer">
+                                    Reserve Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+            </div>
+
+            <% } else { %>
+                <div class="flex-grow flex items-center justify-center">
+                    <div
+                        class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-[2rem] p-12 text-center shadow-2xl relative z-10">
+                        <div
+                            class="w-20 h-20 bg-slate-950 border border-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-[#ff385c] shadow-inner">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <h1 class="text-3xl font-extrabold text-white mb-4 tracking-tight">Saved Homes</h1>
+                        <p class="text-slate-400 mb-8 leading-relaxed">You haven't saved any homes yet. Click the heart
+                            icon on properties to save them here for later.</p>
+                        <a href="/user/home-list"
+                            class="inline-block w-full px-8 py-4 bg-white text-slate-950 rounded-2xl font-bold hover:bg-[#ff385c] hover:text-white transition-all duration-300 transform active:scale-[0.98]">
+                            Start Exploring
+                        </a>
+                    </div>
+                </div>
+                <% } %>
     </main>
 </body>
+
 </html>

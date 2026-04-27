@@ -22,7 +22,7 @@ app.use(express.static(path.join(rootDir, 'public')));
 
 app.use(errors.get404)
 
-const PORT = 4000;
+const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server running on PORT:${PORT}. Click here to visit http://localhost:${PORT}`);
 }); 

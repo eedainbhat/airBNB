@@ -12,6 +12,8 @@ userRouter.get('/home-details', storeController.getHomeDetails);
 
 userRouter.get('/favorites', storeController.getFavorites);
 
+userRouter.post('/favorites', storeController.postFavorites);
+
 userRouter.get('/reserved', storeController.getReservedHomes);
 
 userRouter.get('/bookings', storeController.getBookings);
