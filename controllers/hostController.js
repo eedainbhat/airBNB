@@ -4,10 +4,11 @@ const Favourites = require('../models/favorites');
 
 
 exports.getHomeAdded = (req, res) => {
-    const { name, price, location, photo } = req.body;
-    const home = new Home(name, price, location, photo);
-    home.save();
-    res.render('host/homeAdded');
+    const { name, price, location, photo, description } = req.body;
+    const home = new Home(name, price, location, photo, description);
+    home.save().then(() => {
+        res.render('host/homeAdded');
+    })
 }
 
 
@@ -21,17 +22,15 @@ exports.getAddHome = (req, res) => {
 
 exports.getEditHomes = (req, res) => {
     const homeId = req.params.homeId;
-    Home.findById(homeId, (home) => {
-        if (!home) {
-            res.render('error');
-        } else {
-            res.render("host/edit-home", { home })
-        }
-    })
+    Home.findById(homeId).then(home => {
+        res.render("host/edit-home", { home })
+    }).catch(error => {
+        console.log('Error while updating home', error);
+    });
 };
 
 exports.getHostHomelist = (req, res) => {
-    Home.fetchAll((homelist) => {
+    Home.fetchAll().then((homelist) => {
         res.render('host/host-homelist', { homelist });
     });
 };
@@ -39,16 +38,19 @@ exports.getHostHomelist = (req, res) => {
 exports.postEditHomes = (req, res) => {
     const homeData = req.body;
     const homeId = req.body.homeId;
-    Home.updateHome(homeId, homeData, (home) => {
+
+    Home.updateHome(homeId, homeData).then((home) => {
         res.redirect("/host/host-homelist")
-    })
+    });
 }
 
 exports.postDeleteHome = (req, res) => {
     const homeId = req.params.homeId;
-    Home.deleteHome(homeId, (home) => {
-        Favourites.deleteFavourite(homeId, (home)=>{
-        res.redirect('/host/host-homelist');
+    Home.deleteHome(homeId).then((home) => {
+        Favourites.deleteFavourite(homeId).then((favHomes) => {
+            res.redirect('/host/host-homelist');
         })
-    })
+    }).catch(error => {
+        console.log('Error while reading homeById', error);
+    });
 }

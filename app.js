@@ -1,10 +1,11 @@
 const express = require('express');
-const {hostRouter} = require('./routes/hostRouter');
-const {userRouter} = require('./routes/userRouter');
+const { hostRouter } = require('./routes/hostRouter');
+const { userRouter } = require('./routes/userRouter');
 const path = require('path');
 const rootDir = require('./utils/pathUtil')
 const homes = require('./controllers/homes');
 const errors = require('./controllers/errors');
+const {mongoConnect} = require('./utils/databaseUtil');
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use(express.static(path.join(rootDir, 'public')));
 app.use(errors.get404)
 
 const PORT = 8000;
-app.listen(PORT, () => {
-    console.log(`Server running on PORT:${PORT}. Click here to visit http://localhost:${PORT}`);
-}); 
+mongoConnect(client => {
+    app.listen(PORT, () => {
+        console.log(`Server running on PORT:${PORT}. Click here to visit http://localhost:${PORT}`);
+    });
+})
