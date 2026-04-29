@@ -5,7 +5,7 @@ const Favourites = require('../models/favorites');
 
 exports.getHomeAdded = (req, res) => {
     const { name, price, location, photo, description } = req.body;
-    const home = new Home(name, price, location, photo, description);
+    const home = new Home({ name, price, location, photo, description });
     home.save().then(() => {
         res.render('host/homeAdded');
     })
@@ -30,26 +30,36 @@ exports.getEditHomes = (req, res) => {
 };
 
 exports.getHostHomelist = (req, res) => {
-    Home.fetchAll().then((homelist) => {
+    Home.find().then((homelist) => {
         res.render('host/host-homelist', { homelist });
     });
 };
 
 exports.postEditHomes = (req, res) => {
-    const homeData = req.body;
+    const { name, price, location, photo, description } = req.body;
     const homeId = req.body.homeId;
-
-    Home.updateHome(homeId, homeData).then((home) => {
-        res.redirect("/host/host-homelist")
+    Home.findById(homeId).then((home) => {
+        home.name = name;
+        home.price = price;
+        home.location = location;
+        home.photo = photo;
+        home.description = description;
+        return home.save()
+            .then((updatedHome) => {
+                console.log('Home updated');
+                res.redirect("/host/host-homelist")
+            }).catch(error => {
+                console.log('Error while updating home', error);
+            });
+    }).catch(error => {
+        console.log('Error while updating home', error);
     });
 }
 
 exports.postDeleteHome = (req, res) => {
     const homeId = req.params.homeId;
-    Home.deleteHome(homeId).then((home) => {
-        Favourites.deleteFavourite(homeId).then((favHomes) => {
-            res.redirect('/host/host-homelist');
-        })
+    Home.findByIdAndDelete(homeId).then((home) => {
+        res.redirect('/host/host-homelist');
     }).catch(error => {
         console.log('Error while reading homeById', error);
     });

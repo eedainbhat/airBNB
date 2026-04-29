@@ -5,7 +5,8 @@ const path = require('path');
 const rootDir = require('./utils/pathUtil')
 const homes = require('./controllers/homes');
 const errors = require('./controllers/errors');
-const {mongoConnect} = require('./utils/databaseUtil');
+const { default: mongoose } = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
@@ -24,8 +25,13 @@ app.use(express.static(path.join(rootDir, 'public')));
 app.use(errors.get404)
 
 const PORT = 8000;
-mongoConnect(client => {
+const DB_PATH = process.env.MONGO_URI;
+
+mongoose.connect(DB_PATH).then(()=>{
+    console.log("Connected to Mongoose");
     app.listen(PORT, () => {
         console.log(`Server running on PORT:${PORT}. Click here to visit http://localhost:${PORT}`);
     });
-})
+}).catch(err=>{
+    console.log("Error while connecting to Mongoose", err);
+});
