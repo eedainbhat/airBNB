@@ -5,13 +5,21 @@ const Favourites = require('../models/favorites');
 const { ObjectId } = require("mongodb");
 
 exports.getUserHome = (req, res) => {
-    res.render('store/userHome');
+    res.render('store/userHome', {
+        currentPage: 'home',
+        isLoggedIn: req.isLoggedIn,
+    });
 };
 
 exports.getHomelist = (req, res) => {
     Home.find().then((homelist) => {
         Favourites.find().then((favHomes) => {
-            res.render('store/userHomelist', { homelist, favHomes });
+            res.render('store/userHomelist', {
+                homelist,
+                favHomes,
+                currentPage: 'home-list',
+                isLoggedIn: req.isLoggedIn,
+            });
         })
     }).catch(error => {
         console.log('Error while reading DB homelist', error);
@@ -24,7 +32,11 @@ exports.getHomeDetails = (req, res) => {
         if (!home) {
             res.render("error.ejs");
         } else {
-            res.render('store/home-details', { home });
+            res.render('store/home-details', {
+                home,
+                currentPage: 'home-details',
+                isLoggedIn: req.isLoggedIn,
+            });
         }
     }).catch(error => {
         console.log('Error while reading homeById', error);
@@ -32,26 +44,32 @@ exports.getHomeDetails = (req, res) => {
 };
 
 
-exports.getReservedHomes = (req, res) => { 
-    res.render('store/reserved');
+exports.getReservedHomes = (req, res) => {
+    res.render('store/reserved', {
+        currentPage: 'reserved',
+        isLoggedIn: req.isLoggedIn,
+    });
 };
 
 exports.getBookings = (req, res) => {
-    res.render('store/bookings');
+    res.render('store/bookings', {
+        currentPage: 'bookings',
+        isLoggedIn: req.isLoggedIn,
+    });
 };
 
 exports.postFavorites = (req, res) => {
     const homeId = req.body.id;
-    Favourites.findOne({homeId}).then((isFavourite) => {
+    Favourites.findOne({ homeId }).then((isFavourite) => {
         if (!isFavourite) {
-            const fav = new Favourites({homeId});
+            const fav = new Favourites({ homeId });
             fav.save().then((favHomes) => {
                 console.log("Favourite added", favHomes);
                 res.redirect('/user/favorites');
             })
 
         } else if (isFavourite) {
-            Favourites.findOneAndDelete({homeId}).then(home => {
+            Favourites.findOneAndDelete({ homeId }).then(home => {
                 console.log('Home removed from favourites');
                 res.redirect('/user/favorites');
             })
@@ -64,11 +82,16 @@ exports.postFavorites = (req, res) => {
 
 exports.getFavorites = (req, res) => {
     Favourites.find()
-    .populate('homeId')
-    .then((favHomes) => {
+        .populate('homeId')
+        .then((favHomes) => {
             const favouriteHomes = favHomes.map(favHome => favHome.homeId).filter(home => home !== undefined);
 
-            res.render('store/favorites', { favouriteHomes, isFavorite: true });
+            res.render('store/favorites', {
+                favouriteHomes,
+                isFavorite: true,
+                currentPage: 'favourites',
+                isLoggedIn: req.isLoggedIn,
+            });
         }).catch(error => {
             console.log('Error while reading DB homelist', error);
         })

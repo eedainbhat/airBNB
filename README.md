@@ -10,7 +10,6 @@ A full-stack web application inspired by Airbnb, built using **Node.js**, **Expr
 
 ### 💻 Core Functionalities
 - **MVC Architecture**: Clean separation of logic with specific controllers for store/travelers (`storeController.js`) and hosts (`hostController.js`).
-- **Data Persistence**: Uses Node's native `fs` module to securely store, retrieve, and manage property data via a local JSON file (`data/homes.json`).
 - **Custom Error Handling**: Features a highly stylized, animated "glitch/CRT" system error page (`error.ejs`) and dedicated 404 handling.
 - **Modern UI**: Styled with Tailwind CSS, utilizing glassmorphism, backdrops, screen blends, and custom keyframe animations.
 
@@ -19,28 +18,7 @@ A full-stack web application inspired by Airbnb, built using **Node.js**, **Expr
 - **Backend**: Node.js, Express.js
 - **Frontend**: EJS (Embedded JavaScript templating), HTML5
 - **Styling**: Tailwind CSS (compiled via `output.css`) with custom CSS animations
-- **Data Storage**: File System (JSON-based storage)
-
-## 📁 Project Structure
-
-\`\`\`text
-├── controllers/
-│   ├── errors.js          # Global error handling (404)
-│   ├── hostController.js  # Host/Admin business logic
-│   └── storeController.js # Traveler/User business logic
-├── models/
-│   └── home.js            # Home data model (save, fetchAll, findById)
-├── views/
-│   ├── home.ejs           # Landing portal page
-│   ├── error.ejs          # Glitch-themed error template
-│   ├── host/              # Host dashboard views (addHome, hostHome, etc.)
-│   └── store/             # Traveler views (userHomelist, bookings, etc.)
-├── utils/
-│   └── pathUtil.js        # Root directory path utility
-├── data/
-│   └── homes.json         # Database storage file (Auto-generated)
-└── app.js / server.js     # Express application entry point (Assumed)
-\`\`\`
+- **Data Storage**: MongoDB - Mongoose
 
 ## ⚙️ Installation & Setup
 
@@ -56,26 +34,13 @@ A full-stack web application inspired by Airbnb, built using **Node.js**, **Expr
    npm install
    \`\`\`
 
-3. **Data Initialization:**
-   Ensure there is a `data` folder in the root directory. The application will auto-generate `homes.json` inside it when a new home is added, but the folder must exist to prevent crashes.
-   \`\`\`bash
-   mkdir data
-   \`\`\`
-
 4. **Compile Tailwind CSS (Optional but recommended if editing styles):**
    \`\`\`bash
    npm run build:css 
    \`\`\`
 
-5. **Run the application:**
-   \`\`\`bash
-   npm start
-   # or run with nodemon for development
-   npm run dev
-   \`\`\`
-
 6. **Access the App:**
-   Open `http://localhost:4000` (or your configured port) in your web browser. From the landing page, choose between the **Traveler** or **Host/Admin** portal to start using the application.
+   Open `http://localhost:[YOUR_PORT]` in your web browser. From the landing page, choose between the **Traveler** or **Host/Admin** portal to start using the application.
 
 ## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

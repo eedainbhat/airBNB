@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb | Confirm Logout</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body class="bg-[#020617] text-slate-200 min-h-screen flex flex-col items-center justify-center font-sans overflow-hidden relative selection:bg-[#ff385c]/30">
+    
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#ff385c]/15 rounded-full mix-blend-screen filter blur-[128px] animate-[pulse_6s_ease-in-out_infinite] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-slate-800/20 rounded-full mix-blend-screen filter blur-[128px] animate-[pulse_8s_ease-in-out_infinite_reverse] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-sm px-6 perspective-1000">
+        
+        <div class="flex flex-col items-center bg-slate-900/60 backdrop-blur-2xl border border-slate-700/50 p-8 sm:p-10 rounded-[2.5rem] shadow-[0_20px_80px_-15px_rgba(0,0,0,0.5)] text-center">
+            
+            <div class="relative mb-6">
+                <div class="absolute inset-0 bg-[#ff385c] blur-xl opacity-20 rounded-full animate-pulse"></div>
+                <div class="relative flex items-center justify-center w-16 h-16 bg-slate-950 border border-slate-800 rounded-2xl shadow-inner">
+                    <svg class="w-8 h-8 text-[#ff385c] ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="text-3xl font-black text-white tracking-tight mb-2">Leaving so soon?</h1>
+            <p class="text-slate-400 font-medium text-sm mb-8 leading-relaxed">
+                You are about to log out of your account. You will need to sign back in to manage your portals or book stays.
+            </p>
+
+            <div class="flex flex-col w-full gap-3">
+                <form action="/logout" method="POST" class="w-full m-0">
+                    <button type="submit" class="w-full flex justify-center items-center py-3.5 px-4 bg-[#ff385c] text-white rounded-xl font-bold tracking-wide hover:bg-[#e03150] hover:shadow-[0_0_20px_rgba(255,56,92,0.3)] transition-all duration-300 active:scale-[0.98]">
+                        Yes, log me out
+                    </button>
+                </form>
+
+                <a href="javascript:history.back()" class="w-full flex justify-center items-center py-3.5 px-4 bg-transparent text-slate-300 hover:text-white rounded-xl font-bold tracking-wide border border-slate-700 hover:border-slate-500 hover:bg-slate-800 transition-all duration-300 active:scale-[0.98]">
+                    Cancel, stay logged in
+                </a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

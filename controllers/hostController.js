@@ -7,23 +7,31 @@ exports.getHomeAdded = (req, res) => {
     const { name, price, location, photo, description } = req.body;
     const home = new Home({ name, price, location, photo, description });
     home.save().then(() => {
-        res.render('host/homeAdded');
+        res.render('host/homeAdded', {
+            isLoggedIn: req.isLoggedIn,
+        });
     })
 }
 
 
 exports.getHostHome = (req, res) => {
-    res.render('host/hostHome')
+    res.render('host/hostHome',{ 
+        currentPage: 'home',
+        isLoggedIn: req.isLoggedIn,
+    })
 };
 
 exports.getAddHome = (req, res) => {
-    res.render('host/addHome')
+    res.render('host/addHome',{
+        currentPage: 'add-home',
+        isLoggedIn: req.isLoggedIn,
+    })
 };
 
 exports.getEditHomes = (req, res) => {
     const homeId = req.params.homeId;
     Home.findById(homeId).then(home => {
-        res.render("host/edit-home", { home })
+        res.render("host/edit-home", { home, currentPage: 'edit-home', isLoggedIn: req.isLoggedIn, })
     }).catch(error => {
         console.log('Error while updating home', error);
     });
@@ -31,7 +39,7 @@ exports.getEditHomes = (req, res) => {
 
 exports.getHostHomelist = (req, res) => {
     Home.find().then((homelist) => {
-        res.render('host/host-homelist', { homelist });
+        res.render('host/host-homelist', { homelist, currentPage: 'home-list', isLoggedIn: req.isLoggedIn, });
     });
 };
 
