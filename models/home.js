@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Favourites = require('../models/favorites');
+const User = require('./user');
 
 const homeSchema = mongoose.Schema({
     name: {
@@ -26,7 +26,9 @@ const homeSchema = mongoose.Schema({
 
 homeSchema.pre('findOneAndDelete', async function() {
     const homeId = this.getQuery()._id;
-    await Favourites.deleteMany({homeId});
+    await User.updateMany({}, {
+        $pull: {favourites: homeId}
+    })
 });
 
 module.exports = mongoose.model("Home", homeSchema)

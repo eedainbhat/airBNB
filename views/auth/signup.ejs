@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb | Create Account</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+
+<body class="bg-white text-slate-900 font-sans antialiased min-h-screen flex overflow-hidden">
+
+    <div class="hidden lg:flex lg:w-1/2 relative bg-slate-950 items-center justify-center p-12 overflow-hidden">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#ff385c]/30 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_6s_ease-in-out_infinite]">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_8s_ease-in-out_infinite_reverse]">
+        </div>
+
+        <div class="relative z-10 max-w-lg">
+            <h1 class="text-5xl font-black text-white leading-tight mb-6 tracking-tight">
+                Unlock your next <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff385c] to-purple-400">great
+                    adventure.</span>
+            </h1>
+            <p class="text-slate-400 text-lg font-medium leading-relaxed mb-8">
+                Join a global community of travelers and hosts. Discover unique homes, experiences, and places around
+                the world.
+            </p>
+            <div
+                class="flex items-center gap-4 bg-white/5 border border-white/10 backdrop-blur-md p-4 rounded-2xl w-fit">
+                <div
+                    class="w-12 h-12 bg-gradient-to-tr from-[#ff385c] to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-white font-bold text-sm">Quick & Easy Setup</p>
+                    <p class="text-slate-400 text-xs mt-0.5">Takes less than a minute</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 h-screen overflow-y-auto">
+        <div class="w-full max-w-md">
+
+            <div class="mb-8">
+                <h2 class="text-3xl font-black tracking-tight text-slate-900">Create an account</h2>
+                <p class="text-slate-500 mt-2 font-medium text-sm">Enter your details to get started.</p>
+            </div>
+
+            <form action="/signup" method="POST" class="flex flex-col gap-5">
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Account
+                        Type</span>
+                    <div class="grid grid-cols-2 gap-4">
+
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="accountType" value="traveler" class="peer sr-only" <%= typeof
+                                oldInput !=='undefined' && oldInput.accountType ==='traveler' ? 'checked' : '' %> >
+                            <div
+                                class="flex items-center justify-center gap-2 p-3.5 rounded-xl border-2 border-slate-100 bg-slate-50 text-slate-500 hover:bg-slate-100 peer-checked:border-[#ff385c] peer-checked:bg-[#ff385c]/5 peer-checked:text-[#ff385c] transition-all duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                    </path>
+                                </svg>
+                                <span class="font-bold text-sm peer-checked:text-slate-900">Traveler</span>
+                            </div>
+                        </label>
+
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="accountType" value="host" class="peer sr-only" <%= typeof oldInput
+                                !=='undefined' && oldInput.accountType ==='host' ? 'checked' : '' %> >
+                            <div
+                                class="flex items-center justify-center gap-2 p-3.5 rounded-xl border-2 border-slate-100 bg-slate-50 text-slate-500 hover:bg-slate-100 peer-checked:border-[#ff385c] peer-checked:bg-[#ff385c]/5 peer-checked:text-[#ff385c] transition-all duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                    </path>
+                                </svg>
+                                <span class="font-bold text-sm peer-checked:text-slate-900">Host</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-1">
+                    <div class="flex flex-col gap-1.5">
+                        <label for="firstName"
+                            class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">First
+                            Name</label>
+                        <input type="text" value="<%= typeof oldInput !== 'undefined' ? oldInput.firstName : '' %>"
+                            id="firstName" name="firstName" placeholder="John"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="lastName"
+                            class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Last
+                            Name</label>
+                        <input type="text" id="lastName"
+                            value="<%= typeof oldInput !== 'undefined' ? oldInput.lastName : '' %>" name="lastName"
+                            placeholder="Doe"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="email"
+                        class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Email
+                        Address</label>
+                    <input type="email" id="email" name="email"
+                        value="<%= typeof oldInput !== 'undefined' ? oldInput.email : '' %>"
+                        placeholder="hello@example.com"
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="flex flex-col gap-1.5">
+                        <label for="password"
+                            class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password"
+                                value="<%= typeof oldInput !== 'undefined' ? oldInput.password : '' %>"
+                                placeholder="••••••••"
+                                class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                            <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-[#ff385c] transition-colors focus:outline-none">
+                                <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <svg id="eyeSlashIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="confirmPassword"
+                            class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Confirm</label>
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                value="<%= typeof oldInput !== 'undefined' ? oldInput.password : '' %>"
+                                placeholder="••••••••"
+                                class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                            <button type="button" id="toggleConfirmPassword"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-[#ff385c] transition-colors focus:outline-none">
+                                <svg id="eyeIconConfirm" class="w-4 h-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <svg id="eyeSlashIconConfirm" class="w-4 h-4 hidden" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3 mt-2">
+
+                    <div class="relative flex items-center pt-0.5">
+                        <input type="checkbox" id="terms" name="terms" class="peer sr-only cursor-pointer">
+
+                        <label for="terms"
+                            class="w-5 h-5 rounded-md border-2 border-slate-300 bg-slate-50 cursor-pointer transition-all duration-300 ease-out 
+                    peer-checked:bg-[#ff385c] peer-checked:border-[#ff385c] 
+                    hover:border-[#ff385c]/60 peer-focus-visible:ring-4 peer-focus-visible:ring-[#ff385c]/20 shadow-sm flex items-center justify-center">
+                        </label>
+
+                        <svg class="absolute inset-0 w-5 h-5 mt-0.5 text-white pointer-events-none scale-50 opacity-0 transition-all duration-300 ease-out 
+                    peer-checked:scale-100 peer-checked:opacity-100" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <label for="terms"
+                        class="text-sm text-slate-500 font-medium leading-relaxed cursor-pointer select-none">
+                        I agree to the
+                        <a href="/terms"
+                            class="text-slate-800 hover:text-[#ff385c] font-bold transition-colors underline decoration-slate-300 hover:decoration-[#ff385c] underline-offset-2">Terms
+                            of Service</a>
+                        and
+                        <a href="/privacy"
+                            class="text-slate-800 hover:text-[#ff385c] font-bold transition-colors underline decoration-slate-300 hover:decoration-[#ff385c] underline-offset-2">Privacy
+                            Policy</a>.
+                    </label>
+
+                </div>
+
+                <%-include('../partials/errorsPartial')%>
+
+                        <button type="submit"
+                            class="mt-2 w-full flex justify-center items-center py-3.5 px-4 bg-[#ff385c] text-white rounded-xl text-sm font-bold tracking-wide hover:bg-[#e03150] shadow-[0_4px_14px_0_rgba(255,56,92,0.39)] hover:shadow-[0_6px_20px_rgba(255,56,92,0.23)] transition-all duration-300 active:scale-[0.98]">
+                            Create Account
+                        </button>
+            </form>
+
+            <div class="flex items-center my-6 gap-3">
+                <div class="flex-grow border-t border-slate-200"></div>
+                <span class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-wider">Or continue with</span>
+                <div class="flex-grow border-t border-slate-200"></div>
+            </div>
+
+            <button type="button"
+                class="w-full flex justify-center items-center gap-3 py-3 px-4 bg-white text-slate-700 hover:text-slate-900 rounded-xl text-sm font-semibold border border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-300 active:scale-[0.98]">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                Google
+            </button>
+
+            <p class="text-center mt-8 text-sm text-slate-500 font-medium">
+                Already have an account?
+                <a href="/login" class="text-[#ff385c] hover:text-[#e03150] font-bold transition-colors ml-1">Log in</a>
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        function setupPasswordToggle(toggleId, inputId, eyeIconId, eyeSlashIconId) {
+            const toggle = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+            const eyeSlashIcon = document.getElementById(eyeSlashIconId);
+
+            toggle.addEventListener('click', function () {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                eyeIcon.classList.toggle('hidden');
+                eyeSlashIcon.classList.toggle('hidden');
+            });
+        }
+
+        setupPasswordToggle('togglePassword', 'password', 'eyeIcon', 'eyeSlashIcon');
+        setupPasswordToggle('toggleConfirmPassword', 'confirmPassword', 'eyeIconConfirm', 'eyeSlashIconConfirm');
+    </script>
+</body>
+
+</html>

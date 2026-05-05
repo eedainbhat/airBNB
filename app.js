@@ -46,8 +46,22 @@ const requireAuth = (req, res, next) => {
     return res.redirect('/login');
 };
 
-app.use('/host', requireAuth, hostRouter);
-app.use('/user', requireAuth, userRouter);
+const isTraveler = (req, res, next) => {
+    if (req.session.user && req.session.user.accountType === "traveler") {
+        return next();
+    }
+    res.redirect('/');
+};
+
+const isHost = (req, res, next) => {
+    if (req.session.user && req.session.user.accountType === "host") {
+        return next(); 
+    }
+    res.redirect('/');
+};
+
+app.use('/user', requireAuth, isTraveler, userRouter);
+app.use('/host', requireAuth, isHost, hostRouter);
 app.use(authRouter);
 
 app.use(express.static(path.join(rootDir, 'public')));

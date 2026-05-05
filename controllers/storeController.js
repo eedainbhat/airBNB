@@ -1,34 +1,37 @@
 //imports
 const Home = require('../models/home');
-const Favourites = require('../models/favorites');
-
-const { ObjectId } = require("mongodb");
+const User = require('../models/user');
 
 exports.getUserHome = (req, res) => {
     res.render('store/userHome', {
         currentPage: 'home',
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     });
 };
 
-exports.getHomelist = (req, res) => {
-    Home.find().then((homelist) => {
-        Favourites.find().then((favHomes) => {
-            res.render('store/userHomelist', {
-                homelist,
-                favHomes,
-                currentPage: 'home-list',
-                isLoggedIn: req.isLoggedIn,
-            });
-        })
-    }).catch(error => {
+exports.getHomelist = async (req, res) => {
+    try {
+        const homelist = await Home.find();
+        const userId = req.session.user.id;
+        const user = await User.findById(userId);
+        const favHomes = user.favourites.map(favHomeId => favHomeId.toString());
+        res.render('store/userHomelist', {
+            homelist,
+            favHomes,
+            currentPage: 'home-list',
+            isLoggedIn: req.isLoggedIn,
+            user: req.session.user
+        });
+    } catch (error) {
         console.log('Error while reading DB homelist', error);
-    })
+    }
 };
 
-exports.getHomeDetails = (req, res) => {
-    const homeId = req.params.homeId;
-    Home.findById(homeId).then(home => {
+exports.getHomeDetails = async (req, res) => {
+    try {
+        const homeId = req.params.homeId;
+        const home = await Home.findById(homeId);
         if (!home) {
             res.render("error.ejs");
         } else {
@@ -36,11 +39,12 @@ exports.getHomeDetails = (req, res) => {
                 home,
                 currentPage: 'home-details',
                 isLoggedIn: req.isLoggedIn,
+                user: req.session.user
             });
         }
-    }).catch(error => {
+    } catch (error) {
         console.log('Error while reading homeById', error);
-    });
+    }
 };
 
 
@@ -48,6 +52,7 @@ exports.getReservedHomes = (req, res) => {
     res.render('store/reserved', {
         currentPage: 'reserved',
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     });
 };
 
@@ -55,45 +60,40 @@ exports.getBookings = (req, res) => {
     res.render('store/bookings', {
         currentPage: 'bookings',
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     });
 };
 
-exports.postFavorites = (req, res) => {
-    const homeId = req.body.id;
-    Favourites.findOne({ homeId }).then((isFavourite) => {
-        if (!isFavourite) {
-            const fav = new Favourites({ homeId });
-            fav.save().then((favHomes) => {
-                console.log("Favourite added", favHomes);
-                res.redirect('/user/favorites');
-            })
+exports.getFavorites = async (req, res) => {
+    const userId = req.session.user.id;
+    const user = await User.findById(userId).populate('favourites');
+    const favouriteHomes = user.favourites;
 
-        } else if (isFavourite) {
-            Favourites.findOneAndDelete({ homeId }).then(home => {
-                console.log('Home removed from favourites');
-                res.redirect('/user/favorites');
-            })
-        };
-    }).catch(error => {
-        console.log('Error while adding to favourite', error);
-        res.redirect('/user/favorites');
+    res.render('store/favorites', {
+        favouriteHomes,
+        isFavorite: true,
+        currentPage: 'favourites',
+        isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     })
 };
 
-exports.getFavorites = (req, res) => {
-    Favourites.find()
-        .populate('homeId')
-        .then((favHomes) => {
-            const favouriteHomes = favHomes.map(favHome => favHome.homeId).filter(home => home !== undefined);
+exports.postFavorites = async (req, res) => {
+    const homeId = req.body.id;
+    const userId = req.session.user.id;
 
-            res.render('store/favorites', {
-                favouriteHomes,
-                isFavorite: true,
-                currentPage: 'favourites',
-                isLoggedIn: req.isLoggedIn,
-            });
-        }).catch(error => {
-            console.log('Error while reading DB homelist', error);
-        })
+    const user = await User.findById(userId);
+    const favourites = user.favourites;
+
+    if (!favourites.includes(homeId)) {
+        favourites.push(homeId);
+    } else {    
+        favourites.pull(homeId);
+    }
+
+    await user.save();
+    res.redirect('/user/favorites');
 };
+
+
 

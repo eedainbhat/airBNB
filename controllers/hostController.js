@@ -1,6 +1,5 @@
 //imports
 const Home = require('../models/home');
-const Favourites = require('../models/favorites');
 
 
 exports.getHomeAdded = (req, res) => {
@@ -9,6 +8,7 @@ exports.getHomeAdded = (req, res) => {
     home.save().then(() => {
         res.render('host/homeAdded', {
             isLoggedIn: req.isLoggedIn,
+            user: req.session.user
         });
     })
 }
@@ -18,6 +18,7 @@ exports.getHostHome = (req, res) => {
     res.render('host/hostHome',{ 
         currentPage: 'home',
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     })
 };
 
@@ -25,13 +26,14 @@ exports.getAddHome = (req, res) => {
     res.render('host/addHome',{
         currentPage: 'add-home',
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user
     })
 };
 
 exports.getEditHomes = (req, res) => {
     const homeId = req.params.homeId;
     Home.findById(homeId).then(home => {
-        res.render("host/edit-home", { home, currentPage: 'edit-home', isLoggedIn: req.isLoggedIn, })
+        res.render("host/edit-home", { home, currentPage: 'edit-home', isLoggedIn: req.isLoggedIn, user: req.session.user })
     }).catch(error => {
         console.log('Error while updating home', error);
     });
@@ -39,7 +41,7 @@ exports.getEditHomes = (req, res) => {
 
 exports.getHostHomelist = (req, res) => {
     Home.find().then((homelist) => {
-        res.render('host/host-homelist', { homelist, currentPage: 'home-list', isLoggedIn: req.isLoggedIn, });
+        res.render('host/host-homelist', { homelist, currentPage: 'home-list', isLoggedIn: req.isLoggedIn, user: req.session.user });
     });
 };
 

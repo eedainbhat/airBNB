@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb | Login</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+
+<body class="bg-white text-slate-900 font-sans antialiased min-h-screen flex flex-col lg:flex-row overflow-hidden">
+
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 h-screen overflow-y-auto z-10 bg-white">
+        <div class="w-full max-w-md">
+
+            <div class="mb-8">
+                <h2 class="text-3xl font-black tracking-tight text-slate-900">Welcome back</h2>
+                <p class="text-slate-500 mt-2 font-medium text-sm">Please enter your details to sign in.</p>
+            </div>
+
+            <form action="/login" method="POST" class="flex flex-col gap-5">
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="identifier"
+                        class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Email</label>
+                    <input type="email" id="identifier" value="<%= typeof oldInput !== 'undefined' ? oldInput.email : ''%>" name="email" required placeholder="Enter your email"
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center ml-1">
+                        <label for="password"
+                            class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest">Password</label>
+                        <a href="/forgot-password"
+                            class="text-xs font-semibold text-[#ff385c] hover:text-[#e03150] transition-colors">Forgot?</a>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required placeholder="••••••••"
+                            class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
+                        <button type="button" id="togglePassword"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-[#ff385c] transition-colors focus:outline-none">
+                            <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <svg id="eyeSlashIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+               <%-include('../partials/errorsPartial')%>
+                        <button type="submit"
+                            class="mt-4 w-full flex justify-center items-center py-3.5 px-4 bg-[#ff385c] text-white rounded-xl text-sm font-bold tracking-wide hover:bg-[#e03150] shadow-[0_4px_14px_0_rgba(255,56,92,0.39)] hover:shadow-[0_6px_20px_rgba(255,56,92,0.23)] transition-all duration-300 active:scale-[0.98]">
+                            Sign In
+                        </button>
+            </form>
+
+            <div class="flex items-center my-6 gap-3">
+                <div class="flex-grow border-t border-slate-200"></div>
+                <span class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-wider">Or continue with</span>
+                <div class="flex-grow border-t border-slate-200"></div>
+            </div>
+
+            <button type="button"
+                class="w-full flex justify-center items-center gap-3 py-3 px-4 bg-white text-slate-700 hover:text-slate-900 rounded-xl text-sm font-semibold border border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-300 active:scale-[0.98]">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                Google
+            </button>
+
+            <p class="text-center mt-8 text-sm text-slate-500 font-medium">
+                Don't have an account?
+                <a href="/signup" class="text-[#ff385c] hover:text-[#e03150] font-bold transition-colors ml-1">Sign
+                    up</a>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="hidden lg:flex lg:w-1/2 relative bg-slate-950 items-center justify-center p-12 overflow-hidden">
+        <div
+            class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#ff385c]/30 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_6s_ease-in-out_infinite]">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-emerald-500/20 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_8s_ease-in-out_infinite_reverse]">
+        </div>
+
+        <div class="relative z-10 max-w-lg text-center flex flex-col justify-center items-center">
+            <h1 class="text-5xl font-black text-white leading-tight mb-6 tracking-tight">
+                Pick up where <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-l from-[#ff385c] to-orange-400">you left
+                    off.</span>
+            </h1>
+            <p class="text-slate-400 text-lg font-medium leading-relaxed mb-8">
+                Sign in to manage your bookings, save your favorite stays, and continue planning your perfect getaway.
+            </p>
+            <div
+                class="flex items-center justify-center gap-4 bg-white/5 border border-white/10 backdrop-blur-md p-4 rounded-2xl w-fit">
+                <div class="text-right">
+                    <p class="text-white font-bold text-sm">Secure Access</p>
+                    <p class="text-slate-400 text-xs mt-0.5">Your data is safe with us</p>
+                </div>
+                <div
+                    class="w-12 h-12 bg-gradient-to-tr from-[#ff385c] to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            eyeIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
