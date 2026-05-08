@@ -11,13 +11,21 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 require('dotenv').config();
 const DB_PATH = process.env.MONGO_URI;
+const SESSION_SECRET = process.env.secret;
+const multer = require('multer');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use(express.urlencoded());
+const multerOptions = {
+    dest: "uploads/",
+}
+
+app.use(express.static(path.join(rootDir, 'public')));
+app.use('/uploads', express.static(path.join(rootDir, 'uploads')));
+app.use(express.urlencoded({ extended: true }));
 
 const store = new MongoDBStore({
     uri: DB_PATH,
@@ -25,25 +33,26 @@ const store = new MongoDBStore({
 });
 
 app.use(session({
-    secret: 'airbnb session',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     store: store,
 }))
 
-app.use((req, res, next)=>{
-    req.isLoggedIn = req.session.isLoggedIn;
+app.use((req, res, next) => {
+    req.isLoggedIn = req.session.isLoggedIn || false;
+    const publicPaths = ['/welcome', '/login', '/signup'];
+    if (!req.isLoggedIn && !publicPaths.includes(req.path)) {
+        return res.redirect("/welcome");
+    } 
     next();
 });
-
-app.get('/welcome', homes.getWelcome);
-app.get('/', homes.getHome);
 
 const requireAuth = (req, res, next) => {
     if (req.isLoggedIn) {
         return next();
     }
-    return res.redirect('/login');
+    return res.redirect('/welcome');
 };
 
 const isTraveler = (req, res, next) => {
@@ -55,26 +64,26 @@ const isTraveler = (req, res, next) => {
 
 const isHost = (req, res, next) => {
     if (req.session.user && req.session.user.accountType === "host") {
-        return next(); 
+        return next();
     }
     res.redirect('/');
 };
 
+app.get('/', homes.getHome);
 app.use('/user', requireAuth, isTraveler, userRouter);
 app.use('/host', requireAuth, isHost, hostRouter);
 app.use(authRouter);
 
-app.use(express.static(path.join(rootDir, 'public')));
 
 app.use(errors.get404)
 
-const PORT = 8000;
+const PORT = 7200;
 
-mongoose.connect(DB_PATH).then(()=>{
+mongoose.connect(DB_PATH).then(() => {
     console.log("Connected to Mongoose");
     app.listen(PORT, () => {
         console.log(`Server running on PORT:${PORT}. Click here to visit http://localhost:${PORT}`);
     });
-}).catch(err=>{
+}).catch(err => {
     console.log("Error while connecting to Mongoose", err);
 });

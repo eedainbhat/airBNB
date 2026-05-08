@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb | Edit Profile</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+
+<body
+    class="w-full bg-[#020617] text-slate-200 min-h-screen flex flex-col font-sans overflow-x-hidden relative selection:bg-[#ff385c]/30">
+
+    <div
+        class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#ff385c]/10 rounded-full mix-blend-screen filter blur-[150px] animate-[pulse_7s_ease-in-out_infinite] pointer-events-none z-0">
+    </div>
+    <div
+        class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-500/10 rounded-full mix-blend-screen filter blur-[150px] animate-[pulse_9s_ease-in-out_infinite_reverse] pointer-events-none z-0">
+    </div>
+
+    <header
+        class="sticky top-0 z-50 w-full flex flex-col md:flex-row justify-between items-center px-6 py-4 md:px-12 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/60 shadow-sm shadow-slate-900/20">
+        <a href="/"
+            class="flex items-center gap-2 text-[#ff385c] font-bold text-2xl tracking-tight mb-4 md:mb-0 transition-transform duration-300">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16 1.4c-8.1 0-14.6 6.5-14.6 14.6 0 8.1 6.5 14.6 14.6 14.6 8.1 0 14.6-6.5 14.6-14.6 0-8.1-6.5-14.6-14.6-14.6zm0 27.2c-7 0-12.6-5.6-12.6-12.6 0-7 5.6-12.6 12.6-12.6 7 0 12.6 5.6 12.6 12.6 0 7-5.6 12.6-12.6 12.6zm3.6-17.1c-1-1.1-2.2-1.7-3.6-1.7-1.4 0-2.6.6-3.6 1.7-1.1 1.2-1.8 3-1.8 5.2s.7 4 1.8 5.2c1 1.1 2.2 1.7 3.6 1.7 1.4 0 2.6-.6 3.6-1.7 1.1-1.2 1.8-3 1.8-5.2s-.7-4-1.8-5.2zm-1.5 8.9c-.6.6-1.3.9-2.1.9-.8 0-1.5-.3-2.1-.9-.6-.7-.9-1.9-.9-3.7 0-1.8.3-3 .9-3.7.6-.6 1.3-.9 2.1-.9.8 0 1.5.3 2.1.9.6.7.9 1.9.9 3.7 0 1.8-.3 3-.9 3.7z" />
+            </svg>
+            Airbnb
+        </a>
+
+        <%-include('../partials/hostNavPartial')%>
+    </header>
+
+    <section class="relative z-20 w-full px-6 py-6 max-w-3xl mx-auto flex justify-between items-center">
+        <a href="javascript:history.back()"
+            class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-300 group">
+            <div
+                class="p-2 bg-slate-900/50 border border-slate-800 rounded-xl group-hover:border-slate-600 group-hover:bg-slate-800 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </div>
+            <span class="font-semibold text-sm tracking-wide">Back to Profile</span>
+        </a>
+    </section>
+
+    <main class="relative z-10 flex-grow w-full max-w-3xl mx-auto px-4 md:px-8 pb-20">
+
+        <div class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">Edit Profile</h1>
+            <p class="text-slate-400 font-medium">Update your personal details and public hosting presence.</p>
+        </div>
+
+        <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/60 rounded-[2rem] p-6 md:p-10 shadow-2xl">
+
+            <form action="/host/edit-profile" method="POST" class="flex flex-col gap-8" enctype="multipart/form-data">
+
+                <div class="flex flex-col sm:flex-row items-center gap-6 pb-8 border-b border-slate-800/60">
+                    <div class="relative group cursor-pointer shrink-0">
+                        <img src="<%= host.profilePicture || '/images/default-pfp.webp' %>"
+                            alt="Profile Picture"
+                            class="w-28 h-28 rounded-full object-cover border-4 border-slate-800 group-hover:border-[#ff385c]/50 transition-colors duration-300 shadow-inner">
+
+                        <div
+                            class="absolute inset-0 bg-slate-950/60 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+
+                        <input type="file" name="profilePicture" accept="images/*"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    </div>
+
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-bold text-white mb-1">Profile Photo</h3>
+                        <p class="text-xs text-slate-400 mb-3">JPG, GIF or PNG. Max size of 5MB.</p>
+                        <label
+                            class="inline-block px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold uppercase tracking-widest rounded-lg cursor-pointer transition-colors">
+                            Upload New Image
+                            <input type="file" name="profilePicture" accept=".jpg,.jpeg,.png" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label for="firstName"
+                            class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">First Name</label>
+                        <input type="text" id="firstName" name="firstName" value="<%= host.firstName %>" 
+                            class="w-full bg-slate-950/50 border border-slate-700/60 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] transition-all placeholder-slate-600">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="lastName"
+                            class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" value="<%= host.lastName %>" 
+                            class="w-full bg-slate-950/50 border border-slate-700/60 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] transition-all placeholder-slate-600">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="bio" class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">About You
+                        (Bio)</label>
+                    <textarea id="bio" name="bio" rows="5"
+                        placeholder="Tell guests a little about yourself, your hobbies, or why you love hosting..."
+                        class="w-full bg-slate-950/50 border border-slate-700/60 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] transition-all placeholder-slate-600 resize-none"><%= host.bio || '' %></textarea>
+                    <p class="text-xs text-slate-500 pl-1 mt-1">This will be visible on your public host profile.</p>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full py-3.5 bg-[#ff385c] hover:bg-[#e03150] text-white font-semibold text-base rounded-xl transition-colors duration-200 active:scale-[0.98]">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+        <div
+            class="mt-8 bg-slate-900/40 backdrop-blur-xl border border-slate-800/60 rounded-[2rem] p-6 md:p-10 shadow-lg">
+            <h2 class="text-xl font-black text-white tracking-tight mb-6 flex items-center gap-2">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                    </path>
+                </svg>
+                Account Security
+            </h2>
+
+            <div
+                class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800/60">
+                <div>
+                    <h3 class="text-white font-bold mb-1">Password</h3>
+                    <p class="text-sm text-slate-400">Ensure your account is using a long, random password to stay
+                        secure.</p>
+                </div>
+                <a href="/change-password"
+                    class="shrink-0 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-xl text-sm font-bold transition-all active:scale-95 shadow-sm">
+                    Change Password
+                </a>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-8">
+                <div>
+                    <h3 class="text-red-400 font-bold mb-1">Delete Account</h3>
+                    <p class="text-sm text-slate-400">Permanently delete your account and all of your published homes.
+                        This action cannot be undone.</p>
+                </div>
+
+                <div class="shrink-0 m-0">
+                    <button type="button" onclick="document.getElementById('deleteModal').classList.remove('hidden')"
+                        class="px-6 py-2.5 bg-transparent hover:bg-red-500/10 border border-red-500/50 hover:border-red-500 text-red-500 rounded-xl text-sm font-bold transition-all  shadow-sm">
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="deleteModal"
+        class="hidden fixed flex inset-0 z-[100] items-center justify-center bg-slate-950/80 backdrop-blur-sm px-4 transition-opacity">
+
+        <div
+            class="bg-slate-900 border border-slate-700/60 rounded-[2rem] p-8 max-w-md w-full shadow-2xl transform transition-all">
+
+            <div
+                class="w-16 h-16 mx-auto bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                    </path>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl font-black text-white text-center tracking-tight mb-2">Delete Account?</h3>
+            <p class="text-slate-400 text-center text-sm leading-relaxed mb-8">
+                This action is permanent. All your published homes, reservations, and personal data will be completely
+                wiped from our servers. You cannot undo this.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+
+                <button type="button" onclick="document.getElementById('deleteModal').classList.add('hidden')"
+                    class="w-full sm:w-1/2 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-colors duration-200">
+                    Cancel
+                </button>
+
+                <form action="/delete-account" method="POST" class="w-full sm:w-1/2 m-0">
+                    <button type="submit"
+                        class="w-full py-3 px-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-lg shadow-red-500/20 transition-all duration-200 active:scale-95">
+                        Yes, Delete It
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

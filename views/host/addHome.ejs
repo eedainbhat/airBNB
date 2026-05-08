@@ -17,10 +17,10 @@
         
         <h2 class="text-3xl font-extrabold mb-8 text-white tracking-tight">Create Listing</h2>
         
-        <form action='/host/home-added' method='POST' class="space-y-5">
+        <form action='/host/home-added' method='POST' class="space-y-5" enctype="multipart/form-data">
             <div>
                 <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Property Name</label>
-                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='name' placeholder="e.g. Cozy Cabin in the Woods">
+                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" value="<%= typeof oldInput !== 'undefined' ? oldInput.name : '' %>" type="text" name='name' placeholder="e.g. Cozy Cabin in the Woods">
             </div>
             
             <div class="flex gap-4">
@@ -28,24 +28,26 @@
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Price / Night</label>
                     <div class="relative">
                         <span class="absolute left-4 top-3.5 text-slate-500 font-bold">$</span>
-                        <input class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='price' placeholder="0.00">  
+                        <input class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" value="<%= typeof oldInput !== 'undefined' ? oldInput.price : '' %>" type="text" name='price' placeholder="0.00">  
                     </div>
                 </div>
                 <div class="w-1/2">
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Location</label>
-                    <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='location' placeholder="City, Country">
+                    <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" value="<%= typeof oldInput !== 'undefined' ? oldInput.location : '' %>" type="text" name='location' placeholder="City, Country">
                 </div>
             </div>
 
             <div>
                 <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description</label>
-                <textarea class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner resize-y" required name='description' rows="3" placeholder="Tell guests what makes your place special..."></textarea>
+                <textarea class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner resize-y" name='description' rows="3" placeholder="Tell guests what makes your place special..."><%= typeof oldInput !== 'undefined' ? oldInput.description : '' %></textarea>
             </div>
 
             <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Photo URL</label>
-                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" required type="text" name='photo' placeholder="https://...">
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Photo</label>
+                <input class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 cursor-pointer py-3.5 focus:outline-none focus:border-[#ff385c] focus:ring-1 focus:ring-[#ff385c] text-white transition-all placeholder:text-slate-600 shadow-inner" type="file" accept="image/*" name='photo'>
             </div>
+
+            <%-include('../partials/errorsPartial')%>
             
             <button type='submit' class="w-full bg-[#ff385c] hover:bg-[#e03150] text-white py-4 rounded-xl font-bold mt-8 transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-[#ff385c]/20 uppercase tracking-wider text-sm flex justify-center items-center gap-2 cursor-pointer hover:gap-5">
                 Publish Listing

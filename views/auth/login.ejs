@@ -23,7 +23,7 @@
                 <div class="flex flex-col gap-1.5">
                     <label for="identifier"
                         class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest ml-1">Email</label>
-                    <input type="email" id="identifier" value="<%= typeof oldInput !== 'undefined' ? oldInput.email : ''%>" name="email" required placeholder="Enter your email"
+                    <input type="email" id="identifier" value="<%= typeof oldInput !== 'undefined' ? oldInput.email : ''%>" name="email"  placeholder="Enter your email"
                         class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
                 </div>
 
@@ -35,7 +35,7 @@
                             class="text-xs font-semibold text-[#ff385c] hover:text-[#e03150] transition-colors">Forgot?</a>
                     </div>
                     <div class="relative">
-                        <input type="password" id="password" name="password" required placeholder="••••••••"
+                        <input type="password" id="password" name="password"  placeholder="••••••••"
                             class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#ff385c] focus:ring-4 focus:ring-[#ff385c]/10 transition-all duration-300">
                         <button type="button" id="togglePassword"
                             class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-[#ff385c] transition-colors focus:outline-none">
@@ -140,7 +140,7 @@
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
             eyeIcon.classList.toggle('hidden');
-            eyeSlashIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');                
         });
     </script>
 </body>

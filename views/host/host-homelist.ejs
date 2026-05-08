@@ -79,7 +79,7 @@
                                     <div
                                         class="flex items-end gap-1 shrink-0 bg-slate-950/50 px-4 py-2 rounded-xl border border-slate-800 transition-colors duration-300 group-hover:border-slate-700">
                                         <span class="text-white font-black text-xl tracking-tight">$<%=home.price%>
-                                                </span>
+                                        </span>
                                         <span
                                             class="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-1">/
                                             night</span>
@@ -99,7 +99,8 @@
                                         <%=home.location%>
                                     </div>
                                     <span class="text-[10px] uppercase tracking-widest font-bold text-slate-500">ID:
-                                        <%=home._id%></span>
+                                        <%=home._id%>
+                                    </span>
                                 </div>
 
                                 <div
@@ -109,6 +110,11 @@
                                     <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 whitespace-pre-line">
                                         <%=home.description%>
                                     </p>
+                                </div>
+                                <div class="mt-1 p-1 ">
+                                    <a href="/host/add-rules/<%=home._id%>" class="text-sm text-blue-400 hover:text-blue-500 cursor-pointer transition-all duration-200">
+                                        Add Rules and Guide as PDF
+                                    </a>
                                 </div>
                             </div>
 
@@ -122,7 +128,7 @@
                                     </svg>
                                     Edit Details
                                 </a>
-                                
+
                                 <form action="/host/delete-home/<%=home._id%>" method="POST" class="flex-1 m-0">
                                     <button type="submit"
                                         class="w-full flex justify-center items-center py-3 px-4 bg-transparent text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200 border border-slate-800 hover:border-rose-500/30 active:scale-[0.98]">

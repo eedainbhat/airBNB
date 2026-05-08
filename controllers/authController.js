@@ -2,6 +2,14 @@ const { check, validationResult } = require("express-validator");
 const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 
+
+exports.getWelcome = (req, res) => {
+    res.render('welcome', {
+        isLoggedIn: false,
+        user: {},
+    })
+};
+
 exports.getLogin = (req, res) => {
     res.render('auth/login', {
         isLoggedIn: false,
@@ -9,9 +17,33 @@ exports.getLogin = (req, res) => {
     });
 };
 
-exports.postLogin = async (req, res) => {
+exports.postLogin = [
+    check("email")
+        .notEmpty()
+        .withMessage("Email is required")
+        .bail()
+        .isEmail()
+        .withMessage("Please enter a valid email")
+        .normalizeEmail(),
+    check("password")
+        .notEmpty()
+        .withMessage("Password is required")
+        .bail()
+        .trim(),
+    
+    
+    async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).render('auth/login', {
+            errorMessages: [errors.array()[0].msg],
+            oldInput: { email }
+        });
+    }
+
     if (!user) {
         return res.status(422).render('auth/login', {
             errorMessages: ["Invalid email or password"],
@@ -40,11 +72,11 @@ exports.postLogin = async (req, res) => {
         }
         res.redirect('/');
     });
-};
+}];
 
 exports.postLogout = (req, res) => {
     req.session.destroy(() => {
-        res.redirect('login');
+        res.redirect('/login');
     })
 };
 
@@ -172,3 +204,98 @@ exports.postSignup = [
         })
     }
 ];
+
+exports.getChangePassword = async (req, res) => {
+    res.render('auth/changePassword', {
+        currentPage: "change-password",
+        isLoggedIn: req.isLoggedIn,
+        user: req.session.user,
+        errorMessages: false,
+    });
+};
+
+exports.postChangePassword = [
+    check("newPassword")
+        .notEmpty()
+        .withMessage("New password is required")
+        .bail()
+        .isLength({ min: 8 })
+        .withMessage("Password must be at least 8 characters long")
+        .bail()
+        .matches(/[a-z]/)
+        .withMessage("Password must contain at least one lowercase letter")
+        .bail()
+        .matches(/[A-Z]/)
+        .withMessage("Password must contain at least one uppercase letter")
+        .bail()
+        .matches(/[0-9]/)
+        .withMessage("Password must contain at least one number")
+        .trim(),
+
+    check("confirmPassword")
+        .notEmpty()
+        .withMessage("Please confirm your new password")
+        .bail()
+        .trim()
+        .custom((value, { req }) => {
+            if (value !== req.body.newPassword) {
+                throw new Error("Passwords do not match");
+            }
+            return true;
+        }),
+
+    async (req, res) => {
+        console.log("🚨 THE ROUTE WAS HIT! I AM ALIVE! 🚨"); // ADD THIS!
+        console.log("INCOMING BODY:", req.body); // Let's see what the form sent
+        try {
+            const { currentPassword, newPassword, confirmPassword } = req.body;
+
+            const errors = validationResult(req);
+
+            console.log("RAW EXPRESS ERRORS:", errors.array());
+            if (!errors.isEmpty()) {
+
+                return res.status(422).render('auth/changePassword', {
+                    currentPage: "change-password",
+                    isLoggedIn: req.isLoggedIn,
+                    user: req.session.user,
+                    errorMessages: [errors.array()[0].msg],
+                    oldInput: { currentPassword, newPassword, confirmPassword }
+                });
+            }
+
+            const userId = req.session.user.id;
+            const user = await User.findById(userId);
+
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+            if (!isMatch) {
+                return res.status(422).render('auth/changePassword', {
+                    currentPage: "change-password",
+                    isLoggedIn: req.isLoggedIn,
+                    user: req.session.user,
+                    errorMessages: ["The current password you entered is incorrect"],
+                    oldInput: { currentPassword, newPassword, confirmPassword }
+                });
+            }
+
+            const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+            user.password = hashedNewPassword;
+            await user.save();
+
+            res.redirect('/');
+
+        } catch (err) {
+            console.log("Error in change password: ", err);
+            res.redirect('/error');
+        }
+    }
+];
+
+exports.postDeleteAccount = async (req, res) => {
+    const hostId = req.session.user.id;
+    const host = await User.findOneAndDelete({ _id: hostId });
+    req.session.destroy(() => {
+        res.redirect('/login');
+    })
+};

@@ -22,6 +22,14 @@ const homeSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    rules: {
+        type: String,
+    }
 });
 
 homeSchema.pre('findOneAndDelete', async function() {
