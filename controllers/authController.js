@@ -1,6 +1,9 @@
 const { check, validationResult } = require("express-validator");
 const User = require("../models/user");
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const rootDir = require('../utils/pathUtil');
+const fs = require('fs/promises');
 
 
 exports.getWelcome = (req, res) => {
@@ -30,49 +33,49 @@ exports.postLogin = [
         .withMessage("Password is required")
         .bail()
         .trim(),
-    
-    
+
+
     async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    const errors = validationResult(req);
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-        return res.status(422).render('auth/login', {
-            errorMessages: [errors.array()[0].msg],
-            oldInput: { email }
-        });
-    }
+        if (!errors.isEmpty()) {
+            return res.status(422).render('auth/login', {
+                errorMessages: [errors.array()[0].msg],
+                oldInput: { email }
+            });
+        }
 
-    if (!user) {
-        return res.status(422).render('auth/login', {
-            errorMessages: ["Invalid email or password"],
-            oldInput: { email }
-        });
-    } else {
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
+        if (!user) {
             return res.status(422).render('auth/login', {
                 errorMessages: ["Invalid email or password"],
                 oldInput: { email }
             });
+        } else {
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(422).render('auth/login', {
+                    errorMessages: ["Invalid email or password"],
+                    oldInput: { email }
+                });
+            }
         }
-    }
 
-    req.session.isLoggedIn = true;
-    req.session.user = {
-        id: user._id.toString(),
-        accountType: user.accountType,
-        email: user.email
-    };
+        req.session.isLoggedIn = true;
+        req.session.user = {
+            id: user._id.toString(),
+            accountType: user.accountType,
+            email: user.email
+        };
 
-    req.session.save((err) => {
-        if (err) {
-            console.log("MONGO ERROR!", err);
-        }
-        res.redirect('/');
-    });
-}];
+        req.session.save((err) => {
+            if (err) {
+                console.log("MONGO ERROR!", err);
+            }
+            res.redirect('/');
+        });
+    }];
 
 exports.postLogout = (req, res) => {
     req.session.destroy(() => {
@@ -298,4 +301,34 @@ exports.postDeleteAccount = async (req, res) => {
     req.session.destroy(() => {
         res.redirect('/login');
     })
+};
+
+exports.postDeletePfp = async (req, res) => {
+    try {
+        const userId = req.params.userId; 
+        
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).render('error');
+        }
+
+        if (user.profilePicture !== '/images/default-pfp.webp') {
+            const oldImagePath = path.join(rootDir, user.profilePicture.substring(1));
+            fs.unlink(oldImagePath).catch((err) => {
+                console.log("Error while deleting previous photo:", err);
+            });
+        }
+        
+        user.profilePicture = '/images/default-pfp.webp';
+        await user.save();
+        
+        if (user.accountType === 'host') {
+            res.redirect('/host/profile-dashboard');
+        } else {
+            res.redirect('/user/settings');
+        }
+    } catch (error) {
+        console.log("Error inside postDeletePfp:", error);
+        res.status(500).render('error');
+    }
 };

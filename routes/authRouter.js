@@ -22,5 +22,7 @@ authRouter.post('/change-password', authController.postChangePassword);
 
 authRouter.post('/delete-account', authController.postDeleteAccount);
 
+authRouter.post('/delete-pfp/:userId', authController.postDeletePfp);
+
 exports.authRouter = authRouter;
  

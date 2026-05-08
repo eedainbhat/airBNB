@@ -3,6 +3,9 @@ const { check, validationResult } = require('express-validator');
 const Home = require('../models/home');
 const user = require('../models/user');
 const User = require('../models/user');
+const path = require('path');
+const rootDir = require('../utils/pathUtil');
+const fs = require('fs/promises');
 
 
 exports.postHomeAdded = [
@@ -186,6 +189,11 @@ exports.postEditHomes = [
             home.price = price;
             home.location = location;
             if (req.file) {
+                const oldImagePath = path.join(rootDir, home.photo.substring(1));
+                fs.unlink(oldImagePath).catch((err => {
+                    console.log("error while deleting previous photo");
+                }));
+
                 home.photo = '/' + req.file.path;
             }
             home.description = description;
@@ -207,6 +215,10 @@ exports.postDeleteHome = (req, res) => {
     const currentUserId = req.session.user.id;
     const returnTo = req.body.returnTo || "/host/host-homelist";
     Home.findOneAndDelete({ _id: homeId, owner: currentUserId }).then((home) => {
+        const oldImagePath = path.join(rootDir, home.photo.substring(1));
+        fs.unlink(oldImagePath).catch((err => {
+            console.log("error while deleting previous photo");
+        }));
         res.redirect(returnTo);
     }).catch(error => {
         console.log('Error while reading homeById', error);
@@ -248,6 +260,12 @@ exports.postEditProfile = async (req, res) => {
     const host = await User.findOne({ _id: hostId });
     let profilePicture = host.profilePicture;
     if (req.file) {
+        if (host.profilePicture !== '/images/default-pfp.webp') {
+            const oldImagePath = path.join(rootDir, user.profilePicture.substring(1));
+            fs.unlink(oldImagePath).catch((err => {
+                console.log("error while deleting previous photo");
+            }))
+        }
         profilePicture = '/' + req.file.path;
     }
     const updateFields = {

@@ -77,7 +77,7 @@ app.use(authRouter);
 
 app.use(errors.get404)
 
-const PORT = 7200;
+const PORT = 7300;
 
 mongoose.connect(DB_PATH).then(() => {
     console.log("Connected to Mongoose");

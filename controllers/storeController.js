@@ -169,7 +169,7 @@ exports.postSettings = [
 
 
     async (req, res) => {
-        const { firstName, lastName, email, phoneNumber } = req.body;   
+        const { firstName, lastName, email, phoneNumber } = req.body;
         const userId = req.session.user.id;
         const user = await User.findById(userId);
         const errors = validationResult(req);
@@ -184,6 +184,12 @@ exports.postSettings = [
 
         let profilePicture = user.profilePicture;
         if (req.file) {
+            if (user.profilePicture !== '/images/default-pfp.webp') {
+                const oldImagePath = path.join(rootDir, user.profilePicture.substring(1));
+                fs.unlink(oldImagePath).catch((err => {
+                        console.log("error while deleting previous photo");
+                }))
+            }
             profilePicture = '/' + req.file.path;
         }
         const updateFields = {

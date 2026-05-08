@@ -24,7 +24,6 @@ hostRouter.post('/edit-home', upload.single('photo'), hostController.postEditHom
 
 hostRouter.post('/delete-home/:homeId', hostController.postDeleteHome);
 
-
 hostRouter.get('/add-rules/:homeId', hostController.getAddRules);
 
 hostRouter.post('/add-rules/:homeId', hostController.postAddRules);
